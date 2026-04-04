@@ -5,8 +5,9 @@ import EditableInput from './EditableInput'
 import EditableSelect from './EditableSelect'
 import EditableTextarea from './EditableTextarea'
 import EditableCalendarInput from './EditableCalendarInput'
-import EditableFileImage from './EditableFileImage'
 import countryList from '../data/countryList'
+import logoBase64 from '../data/logoBase64'
+import { Image } from '@react-pdf/renderer'
 import Document from './Document'
 import Page from './Page'
 import View from './View'
@@ -154,15 +155,19 @@ const InvoicePage: FC<Props> = ({ data, pdfMode, onChange, onSaveToHistory }) =>
 
         <View className="flex" pdfMode={pdfMode}>
           <View className="w-50" pdfMode={pdfMode}>
-            <EditableFileImage
-              className="logo"
-              placeholder="Your Logo"
-              value={invoice.logo}
-              width={invoice.logoWidth}
-              pdfMode={pdfMode}
-              onChangeImage={(value) => handleChange('logo', value)}
-              onChangeWidth={(value) => handleChange('logoWidth', value)}
-            />
+            {pdfMode ? (
+              <Image
+                style={{ maxWidth: invoice.logoWidth || 150 }}
+                src={logoBase64}
+              />
+            ) : (
+              <img
+                src={logoBase64}
+                alt="Company Logo"
+                className="image__img"
+                style={{ maxWidth: invoice.logoWidth || 150 }}
+              />
+            )}
             <EditableInput
               className="fs-20 bold"
               placeholder="Your Company"
