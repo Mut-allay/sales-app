@@ -1,0 +1,48 @@
+.app-nav {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  background: $color-white;
+  border-bottom: 1px solid $color-gray;
+  padding: 10px 12px;
+  flex-wrap: wrap;
+
+  @media (max-width: 600px) {
+    justify-content: stretch;
+    padding: 8px;
+    gap: 6px;
+  }
+
+  &__link {
+    padding: 8px 18px;
+    border-radius: 4px;
+    text-decoration: none;
+    color: $color-dark-2;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background 0.15s, color 0.15s;
+    white-space: nowrap;
+
+    @media (max-width: 600px) {
+      flex: 1 1 auto;
+      text-align: center;
+      padding: 10px 8px;
+      font-size: 13px;
+    }
+
+    &:hover {
+      background: $color-gray;
+      color: $color-dark;
+    }
+
+    &--active {
+      background: $color-dark;
+      color: $color-white;
+
+      &:hover {
+        background: $color-dark;
+        color: $color-white;
+      }
+    }
+  }
+}

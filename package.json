@@ -5,6 +5,7 @@
   "type": "module",
   "homepage": "https://tuanpham-dev.github.io/react-invoice-generator/",
   "scripts": {
+    "start": "vite",
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "prettier -c .",
@@ -22,6 +23,7 @@
     "react": "^18.2.0",
     "react-datepicker": "^6.6.0",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^7.14.0",
     "react-textarea-autosize": "^8.5.3",
     "sass": "^1.72.0",
     "typescript": "^5.4.3",

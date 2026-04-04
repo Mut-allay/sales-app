@@ -1,5 +1,5 @@
 import { FC, useState, useEffect } from 'react'
-import { Invoice, ProductLine } from '../data/types'
+import { Invoice, ProductLine, DocumentType } from '../data/types'
 import { initialInvoice, initialProductLine } from '../data/initialData'
 import EditableInput from './EditableInput'
 import EditableSelect from './EditableSelect'
@@ -30,9 +30,11 @@ interface Props {
   data?: Invoice
   pdfMode?: boolean
   onChange?: (invoice: Invoice) => void
+  documentType?: DocumentType
+  onSaveToHistory?: (data: Invoice) => void
 }
 
-const InvoicePage: FC<Props> = ({ data, pdfMode, onChange }) => {
+const InvoicePage: FC<Props> = ({ data, pdfMode, onChange, onSaveToHistory }) => {
   const [invoice, setInvoice] = useState<Invoice>(data ? { ...data } : { ...initialInvoice })
   const [subTotal, setSubTotal] = useState<number>()
   const [saleTax, setSaleTax] = useState<number>()
@@ -142,7 +144,13 @@ const InvoicePage: FC<Props> = ({ data, pdfMode, onChange }) => {
   return (
     <Document pdfMode={pdfMode}>
       <Page className="invoice-wrapper" pdfMode={pdfMode}>
-        {!pdfMode && <Download data={invoice} setData={(d) => setInvoice(d)} />}
+        {!pdfMode && (
+          <Download
+            data={invoice}
+            setData={(d) => setInvoice(d)}
+            onSaveToHistory={onSaveToHistory}
+          />
+        )}
 
         <View className="flex" pdfMode={pdfMode}>
           <View className="w-50" pdfMode={pdfMode}>

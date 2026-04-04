@@ -1,6 +1,9 @@
 .app {
   margin: 30px auto 50px auto;
   width: 700px;
+  max-width: 100%;
+  padding: 0 12px;
+  box-sizing: border-box;
 }
 
 .input,
@@ -40,6 +43,10 @@
   background: #fff;
   padding: 40px 35px;
   box-shadow: 0 0 17px 0 rgba(16, 40, 73, 0.09);
+
+  @media (max-width: 600px) {
+    padding: 20px 14px;
+  }
 }
 
 .download-pdf {
@@ -83,6 +90,35 @@
   }
   input[type='file'] {
     visibility: hidden;
+  }
+
+  @media (max-width: 600px) {
+    position: static;
+    margin: 0 0 16px 0;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    background: #f8f8f8;
+    border-radius: 6px;
+    padding: 10px 14px;
+
+    a,
+    label,
+    button {
+      position: static;
+      width: 36px;
+      height: 36px;
+      flex-shrink: 0;
+    }
+
+    p {
+      font-size: 11px;
+      text-align: center;
+      margin: 0;
+    }
   }
 }
 

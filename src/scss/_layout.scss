@@ -4,6 +4,10 @@
 
 .flex {
   display: flex;
+
+  @media (max-width: 600px) {
+    flex-wrap: wrap;
+  }
 }
 
 .w-auto {
@@ -16,14 +20,26 @@
 
 .w-50 {
   width: 50%;
+
+  @media (max-width: 600px) {
+    width: 100%;
+  }
 }
 
 .w-55 {
   width: 55%;
+
+  @media (max-width: 600px) {
+    width: 100%;
+  }
 }
 
 .w-45 {
   width: 45%;
+
+  @media (max-width: 600px) {
+    width: 100%;
+  }
 }
 
 .w-60 {

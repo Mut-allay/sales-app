@@ -8,9 +8,10 @@ import FileSaver from 'file-saver'
 interface Props {
   data: Invoice
   setData(data: Invoice): void
+  onSaveToHistory?: (data: Invoice) => void
 }
 
-const Download: FC<Props> = ({ data, setData }) => {
+const Download: FC<Props> = ({ data, setData, onSaveToHistory }) => {
   const debounced = useDebounce(data, 500)
 
   function handleInput(e: React.ChangeEvent<HTMLInputElement>) {
@@ -46,14 +47,16 @@ const Download: FC<Props> = ({ data, setData }) => {
   const title = data.invoiceTitle ? data.invoiceTitle.toLowerCase() : 'invoice'
   return (
     <div className={'download-pdf '}>
-      <PDFDownloadLink
-        key="pdf"
-        document={<InvoicePage pdfMode={true} data={debounced} />}
-        fileName={`${title}.pdf`}
-        aria-label="Save PDF"
-        title="Save PDF"
-        className="download-pdf__pdf"
-      ></PDFDownloadLink>
+      <div onClick={() => onSaveToHistory?.(debounced)}>
+        <PDFDownloadLink
+          key="pdf"
+          document={<InvoicePage pdfMode={true} data={debounced} />}
+          fileName={`${title}.pdf`}
+          aria-label="Save PDF"
+          title="Save PDF"
+          className="download-pdf__pdf"
+        ></PDFDownloadLink>
+      </div>
       <p>Save PDF</p>
 
       <button

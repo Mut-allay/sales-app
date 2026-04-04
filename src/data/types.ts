@@ -53,3 +53,27 @@ export type Invoice = TypeOf<typeof TInvoice>
 export interface CSSClasses {
   [key: string]: CSSProperties
 }
+
+export type DocumentType = 'invoice' | 'quotation' | 'receipt'
+export type ContactType = 'contact' | 'lead'
+
+export interface Contact {
+  id: string
+  type: ContactType
+  name: string
+  company: string
+  email: string
+  phone: string
+  address: string
+  notes: string
+  createdAt: string
+}
+
+export interface HistoryEntry {
+  id: string
+  documentType: DocumentType
+  title: string
+  clientName: string
+  date: string
+  data: Invoice
+}
