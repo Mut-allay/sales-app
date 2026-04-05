@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { PDFDownloadLink } from '@react-pdf/renderer'
-import { Invoice, TInvoice } from '../data/types'
+import { Invoice, TInvoice, DocumentType } from '../data/types'
 import { useDebounce } from '@uidotdev/usehooks'
 import InvoicePage from './InvoicePage'
 import FileSaver from 'file-saver'
@@ -9,9 +9,10 @@ interface Props {
   data: Invoice
   setData(data: Invoice): void
   onSaveToHistory?: (data: Invoice) => void
+  documentType?: DocumentType
 }
 
-const Download: FC<Props> = ({ data, setData, onSaveToHistory }) => {
+const Download: FC<Props> = ({ data, setData, onSaveToHistory, documentType }) => {
   const debounced = useDebounce(data, 500)
 
   function handleInput(e: React.ChangeEvent<HTMLInputElement>) {
@@ -47,16 +48,15 @@ const Download: FC<Props> = ({ data, setData, onSaveToHistory }) => {
   const title = data.invoiceTitle ? data.invoiceTitle.toLowerCase() : 'invoice'
   return (
     <div className={'download-pdf '}>
-      <div onClick={() => onSaveToHistory?.(debounced)}>
-        <PDFDownloadLink
-          key="pdf"
-          document={<InvoicePage pdfMode={true} data={debounced} />}
-          fileName={`${title}.pdf`}
-          aria-label="Save PDF"
-          title="Save PDF"
-          className="download-pdf__pdf"
-        ></PDFDownloadLink>
-      </div>
+      <PDFDownloadLink
+        key="pdf"
+        document={<InvoicePage pdfMode={true} data={debounced} documentType={documentType} />}
+        fileName={`${title}.pdf`}
+        aria-label="Save PDF"
+        title="Save PDF"
+        className="download-pdf__pdf"
+        onClick={() => onSaveToHistory?.(debounced)}
+      ></PDFDownloadLink>
       <p>Save PDF</p>
 
       <button

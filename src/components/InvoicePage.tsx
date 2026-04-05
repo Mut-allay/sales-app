@@ -150,6 +150,7 @@ const InvoicePage: FC<Props> = ({ data, pdfMode, onChange, onSaveToHistory, docu
             data={invoice}
             setData={(d) => setInvoice(d)}
             onSaveToHistory={onSaveToHistory}
+            documentType={documentType}
           />
         )}
 
