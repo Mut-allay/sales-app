@@ -46,9 +46,10 @@ function DocumentRoute({
   fallback: Invoice
   documentType: DocumentType
 }) {
-  const [data] = useState<Invoice>(() => loadDoc(storageKey, fallback))
+  const [data, setData] = useState<Invoice>(() => loadDoc(storageKey, fallback))
 
   function handleChange(invoice: Invoice) {
+    setData(invoice)
     window.localStorage.setItem(storageKey, JSON.stringify(invoice))
   }
 
