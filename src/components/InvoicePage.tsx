@@ -36,7 +36,8 @@ interface Props {
 }
 
 const InvoicePage: FC<Props> = ({ data, pdfMode, onChange, onSaveToHistory, documentType }) => {
-  const [invoice, setInvoice] = useState<Invoice>(data ? { ...data } : { ...initialInvoice })
+  const [invoiceState, setInvoice] = useState<Invoice>(data ? { ...data } : { ...initialInvoice })
+  const invoice = pdfMode && data ? data : invoiceState
   const [subTotal, setSubTotal] = useState<number>()
   const [saleTax, setSaleTax] = useState<number>()
 
@@ -201,11 +202,11 @@ const InvoicePage: FC<Props> = ({ data, pdfMode, onChange, onSaveToHistory, docu
           </View>
           <View className="w-50" pdfMode={pdfMode}>
             {pdfMode ? (
-              <Text className="fs-45 right bold" pdfMode={true}>
+              <Text className="fs-32 right bold" pdfMode={true}>
                 {documentType === 'quotation' ? 'QUOTATION' : documentType === 'receipt' ? 'RECEIPT' : 'INVOICE'}
               </Text>
             ) : (
-              <p className="fs-45 right bold" style={{ margin: 0 }}>
+              <p className="fs-32 right bold" style={{ margin: 0 }}>
                 {documentType === 'quotation' ? 'QUOTATION' : documentType === 'receipt' ? 'RECEIPT' : 'INVOICE'}
               </p>
             )}
@@ -216,7 +217,7 @@ const InvoicePage: FC<Props> = ({ data, pdfMode, onChange, onSaveToHistory, docu
           <View className="w-55" pdfMode={pdfMode}>
             <EditableInput
               className="bold dark mb-5"
-              value={invoice.billTo}
+              value={documentType === 'quotation' ? 'Quote:' : documentType === 'receipt' ? 'Receipt:' : 'Bill To:'}
               onChange={(value) => handleChange('billTo', value)}
               pdfMode={pdfMode}
             />
@@ -465,36 +466,40 @@ const InvoicePage: FC<Props> = ({ data, pdfMode, onChange, onSaveToHistory, docu
           </View>
         </View>
 
-        <View className="mt-20" pdfMode={pdfMode}>
-          <EditableInput
-            className="bold w-100"
-            value={invoice.notesLabel}
-            onChange={(value) => handleChange('notesLabel', value)}
-            pdfMode={pdfMode}
-          />
-          <EditableTextarea
-            className="w-100"
-            rows={2}
-            value={invoice.notes}
-            onChange={(value) => handleChange('notes', value)}
-            pdfMode={pdfMode}
-          />
-        </View>
-        <View className="mt-20" pdfMode={pdfMode}>
-          <EditableInput
-            className="bold w-100"
-            value={invoice.termLabel}
-            onChange={(value) => handleChange('termLabel', value)}
-            pdfMode={pdfMode}
-          />
-          <EditableTextarea
-            className="w-100"
-            rows={2}
-            value={invoice.term}
-            onChange={(value) => handleChange('term', value)}
-            pdfMode={pdfMode}
-          />
-        </View>
+        {documentType !== 'quotation' && (
+          <View className="mt-20" pdfMode={pdfMode}>
+            <EditableInput
+              className="bold w-100"
+              value={invoice.notesLabel}
+              onChange={(value) => handleChange('notesLabel', value)}
+              pdfMode={pdfMode}
+            />
+            <EditableTextarea
+              className="w-100"
+              rows={2}
+              value={invoice.notes}
+              onChange={(value) => handleChange('notes', value)}
+              pdfMode={pdfMode}
+            />
+          </View>
+        )}
+        {documentType !== 'receipt' && documentType !== 'quotation' && (
+          <View className="mt-20" pdfMode={pdfMode}>
+            <EditableInput
+              className="bold w-100"
+              value={invoice.termLabel}
+              onChange={(value) => handleChange('termLabel', value)}
+              pdfMode={pdfMode}
+            />
+            <EditableTextarea
+              className="w-100"
+              rows={2}
+              value={invoice.term}
+              onChange={(value) => handleChange('term', value)}
+              pdfMode={pdfMode}
+            />
+          </View>
+        )}
       </Page>
     </Document>
   )
