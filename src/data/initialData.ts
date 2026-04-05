@@ -10,7 +10,7 @@ export const initialInvoice: Invoice = {
   logo: logoBase64,
   logoWidth: 150,
   title: 'INVOICE',
-  companyName: '',
+  companyName: 'Open Sky Ventures',
   name: '',
   companyAddress: '',
   companyAddress2: '',
