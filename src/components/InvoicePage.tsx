@@ -188,7 +188,7 @@ const InvoicePage: FC<Props> = ({ data, pdfMode, onChange, onSaveToHistory, docu
               pdfMode={pdfMode}
             />
             <EditableInput
-              placeholder="City, State Zip"
+              placeholder="City"
               value={invoice.companyAddress2}
               onChange={(value) => handleChange('companyAddress2', value)}
               pdfMode={pdfMode}
@@ -234,7 +234,7 @@ const InvoicePage: FC<Props> = ({ data, pdfMode, onChange, onSaveToHistory, docu
               pdfMode={pdfMode}
             />
             <EditableInput
-              placeholder="City, State Zip"
+              placeholder="City"
               value={invoice.clientAddress2}
               onChange={(value) => handleChange('clientAddress2', value)}
               pdfMode={pdfMode}
